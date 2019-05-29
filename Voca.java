@@ -16,4 +16,11 @@ public class Voca {
     public String getMean(){
         return mean;
     }
+    
+    public boolean Compare(String ans){
+        if(ans == word){
+            return true;   
+        }else
+            return false;
+    }
 }
