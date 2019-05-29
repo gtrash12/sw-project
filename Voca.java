@@ -4,7 +4,7 @@ public class Voca {
     private String word;
     private String mean;
 
-    void Voca(String w, String m){
+    public Voca(String w, String m){
         word = w;
         mean = m;
     }
