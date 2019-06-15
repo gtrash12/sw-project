@@ -1,10 +1,12 @@
-package com.example.basic.voca;
+package com.example.jinhee.voca;
 
 public class Voca {
     private String word;
     private String mean;
+    private boolean state = false;
 
-    public Voca(String w, String m){
+
+    Voca(String w, String m){
         word = w;
         mean = m;
     }
@@ -16,11 +18,9 @@ public class Voca {
     public String getMean(){
         return mean;
     }
-    
-    public boolean Compare(String ans){
-        if(ans == word){
-            return true;   
-        }else
-            return false;
+
+    public boolean change_state(){
+        state = !state;
+        return state;
     }
 }
