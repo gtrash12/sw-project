@@ -15,18 +15,20 @@ public class QuizActivity extends AppCompatActivity {
 
     Voca voca_receiver;
 
-    static int numoftry = 0;
+    int numoftry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        numoftry=0;
+
+        voca_receiver = Vocalist.getInstance().getRandom();
         vocareText = (TextView) findViewById(R.id.voca_receiver);
         vocainEdit = (EditText) findViewById(R.id.voca_input);
         submitButton = (Button) findViewById(R.id.voca_submit);
 
-        voca_receiver = Vocalist.getInstance().getRandom();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
