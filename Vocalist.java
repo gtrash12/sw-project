@@ -1,7 +1,10 @@
-package com.example.jinhee.voca;
+package com.example.dday;
+
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.renderscript.ScriptGroup;
+import android.support.v7.app.AppCompatActivity;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,8 +12,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -30,7 +37,8 @@ public class Vocalist {
         return vocas;
     }
 
-    private Vocalist() { }
+    private Vocalist() {
+    }
 
     private Vector<Voca> DB = new Vector<Voca>();
     Vector<Voca> vocalist = new Vector<Voca>();
@@ -38,9 +46,14 @@ public class Vocalist {
     DocumentBuilder db;
     Document doc;
     NodeList nodeLst;
+    File voca_save;
 
 
-    public void load(InputStream is, InputStream empty) throws ParserConfigurationException, IOException, SAXException {
+    public void open_savefile(File vf) {
+        vocas.voca_save = vf;
+    }
+
+    public void load(InputStream is) throws ParserConfigurationException, IOException, SAXException {
         dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(false);
         dbf.setValidating(false);
@@ -52,32 +65,52 @@ public class Vocalist {
         for(int i = 0; i < lst_len; i++){
             NodeList current = nodeLst.item(i).getChildNodes();
             DB.addElement(new Voca(current.item(1).getTextContent() ,current.item(3).getTextContent()));
-            vocalist.add(DB.elementAt(i));
+            //vocalist.add(DB.elementAt(i));
         }
-        doc = db.parse(empty);
+        load_voca();
     }
 
     void addVoca(Voca ele){
         vocalist.addElement(ele);
-        Node newnode =  doc.createElement("item");
-        Node word =  doc.createElement("word");
-        word.setTextContent(ele.getWord());
-        newnode.appendChild(word);
-        Node mean =  doc.createElement("word");
-        mean.setTextContent(ele.getWord());
-        newnode.appendChild(mean);
-        doc.appendChild(newnode);
     }
     void removeVoca(Voca ele){
         vocalist.remove(ele);
     }
 
     public Voca getRandom(){
-        int randindex = (int)Math.random()*vocalist.size();
+        int randindex = (int)(Math.random()*DB.size());
         return DB.elementAt(randindex);
     }
 
     public int vocas_len(){
         return vocalist.size();
     }
+
+    public void load_voca(){
+        try {
+            BufferedReader vbr = new BufferedReader( new FileReader(voca_save));
+            String readStr = "";
+            while((readStr = vbr.readLine()) != null){
+                vocalist.add(DB.elementAt(Integer.parseInt(readStr)));
+            }
+            vbr.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void save_voca(){
+        try {
+            BufferedWriter vbw = new BufferedWriter(new FileWriter(voca_save,false));;
+            int len = vocalist.size();
+            for(int i = 0; i < len; i ++){
+                vbw.write(DB.indexOf(vocalist.elementAt(i))+"\n");
+            }
+            vbw.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 }

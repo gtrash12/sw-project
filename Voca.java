@@ -1,4 +1,4 @@
-package com.example.jinhee.voca;
+package com.example.dday;
 
 public class Voca {
     private String word;

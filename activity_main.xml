@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VocaActivity">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+   <Button
+       android:id="@+id/gotodday"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="gotodday"
 
-        <LinearLayout
-            android:id="@+id/vocascroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
+       />
     <Button
-        android:id="@+id/vocabtt"
+        android:id="@+id/gotovoca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ssss"
-        android:visibility="invisible" />
-</android.support.constraint.ConstraintLayout>
+        android:text="gotovoca"
+
+        />
+
+    <Button
+        android:id="@+id/gotoquiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="gotoquiz"
+
+        />
+
+
+
+
+
+
+</LinearLayout>

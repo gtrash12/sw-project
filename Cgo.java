@@ -9,11 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Calendar;
 
 public class Cgo extends Activity {
     Button etoday; //D-day 시간 설정
-    EditText ename;//이벤트 내용적는 부분
+    EditText ename=null;//이벤트 내용적는 부분
     Button check;//설정완료(확인버튼)
 
     //현재시간변수
@@ -63,19 +67,24 @@ public class Cgo extends Activity {
 
         updateDisplay();
 
+
         //check버튼 눌렀을시 MainActivity로 이벤트내용, D-day시간(년,월,일),값을 Intent로 넘김
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Cgo.this, MainActivity.class);
+
+                Intent intent = new Intent(Cgo.this, D_day.class);
                 intent.putExtra("contents",ename.getText().toString());
                 intent.putExtra("ddayvalue",eresultNumber);
                 intent.putExtra("yearvalue",edYear);
                 intent.putExtra("monthvalue",edMonth);
                 intent.putExtra("dayvalue",edDay);
                 startActivity(intent);
+
             }
         });
+
+
 
     }
     //현재시간과 D-day시간 보여주는 함수
@@ -91,13 +100,19 @@ public class Cgo extends Activity {
             edYear=year;
             edMonth=month;
             edDay=dayOfMonth;
+
+            DdayFileSystem.getInstance().yy = year;
+            DdayFileSystem.getInstance().mm = month;
+            DdayFileSystem.getInstance().dd = dayOfMonth;
             final  Calendar dCalendar = Calendar.getInstance();
             dCalendar.set(edYear,edMonth,edDay);
-
             ed=dCalendar.getTimeInMillis();
             er=(ed-et)/(24*60*60*1000);
 
             eresultNumber=(int)er;
+            DdayFileSystem.getInstance().d_day = eresultNumber;
+            DdayFileSystem.getInstance().event= ename.getText().toString();
+            DdayFileSystem.getInstance().save_dday();
             updateDisplay();
         }
     };
@@ -109,4 +124,6 @@ public class Cgo extends Activity {
         return  null;
 
     }
+
+
 }
