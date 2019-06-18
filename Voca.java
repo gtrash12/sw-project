@@ -1,4 +1,4 @@
-package com.example.dday;
+package com.example.jinhee.voca;
 
 public class Voca {
     private String word;
@@ -21,6 +21,9 @@ public class Voca {
 
     public boolean change_state(){
         state = !state;
+        return state;
+    }
+    public boolean getState(){
         return state;
     }
 }

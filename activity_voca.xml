@@ -7,11 +7,21 @@
     tools:context=".VocaActivity">
 
     <Button
+        android:id="@+id/vocabtt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:backgroundTint="#FFFFFF"
+        android:clickable="false"
+        android:visibility="invisible" />
+
+    <Button
         android:id="@+id/Editbtt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:backgroundTint="#3F51B5"
+        android:onClick="ModeChange"
         android:text="Edit"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -26,12 +36,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/vocabtt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ssss"
-                android:visibility="invisible" />
         </LinearLayout>
     </ScrollView>
 
